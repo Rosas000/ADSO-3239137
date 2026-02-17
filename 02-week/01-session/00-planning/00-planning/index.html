@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modelado y Gestion de Bases de Datos - Roadmap Gamificado del Semestre | CORHUILA">
+    <meta name="keywords" content="bases de datos, SQL, PostgreSQL, MySQL, MongoDB, modelo ER, normalizacion">
+    <meta name="author" content="CORHUILA - Ingenieria de Sistemas">
+    <title>Modelado y Gestion de BD - Roadmap del Semestre | CORHUILA</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header__inner">
+            <div class="header__brand">
+                <div class="header__logo">BD</div>
+                <div class="header__text">
+                    <h1>Modelado y Gestion de BD</h1>
+                    <span>Ingenieria de Sistemas - 2026-1</span>
+                </div>
+            </div>
+            <nav class="header__nav">
+                <ul>
+                    <li><a href="#inicio" class="active">Inicio</a></li>
+                    <li><a href="#metodologia">Metodologia</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#evaluacion">Evaluacion</a></li>
+                    <li><a href="#badges">Logros</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <div class="hero__badge">
+                    <span class="hero__badge-dot"></span>
+                    <span>Semestre 2026-1 - 16 Semanas</span>
+                </div>
+                <h2>Domina el Modelado y Gestion de Bases de Datos</h2>
+                <p class="hero__subtitle">
+                    Un viaje de 16 semanas donde aprenderas a disenar, implementar y administrar
+                    bases de datos relacionales y NoSQL con PostgreSQL, MySQL y MongoDB.
+                </p>
+                <div class="hero__stats">
+                    <div class="hero__stat">
+                        <span class="hero__stat-value" id="statWeeks">0</span>
+                        <span class="hero__stat-label">Semanas Completadas</span>
+                    </div>
+                    <div class="hero__stat">
+                        <span class="hero__stat-value" id="statBadges">0</span>
+                        <span class="hero__stat-label">Badges Desbloqueados</span>
+                    </div>
+                    <div class="hero__stat">
+                        <span class="hero__stat-value" id="statProgress">0%</span>
+                        <span class="hero__stat-label">Progreso Total</span>
+                    </div>
+                    <div class="hero__stat">
+                        <span class="hero__stat-value">3</span>
+                        <span class="hero__stat-label">Parciales</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROGRESS CARD ===== -->
+    <div class="container">
+        <div class="progress-card">
+            <div class="progress-card__header">
+                <span class="progress-card__title">📊 Progreso del Semestre</span>
+                <span class="progress-card__value" id="progressValue">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-bar__fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-card__info">
+                <span id="progressText">0 de 16 semanas completadas</span>
+                <button id="btnReset" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.85rem;">
+                    🔄 Reiniciar progreso
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TECH STACK ===== -->
+    <section id="tech" class="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <h2>🛠️ Tecnologias y Conceptos del Curso</h2>
+                <p>Herramientas y conocimientos que dominaras al finalizar</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card tech-card--required">
+                    <div class="tech-card__icon tech-card__icon--diagram">📐</div>
+                    <h4 class="tech-card__name">Modelo ER/EER</h4>
+                    <p class="tech-card__desc">Diagramas y modelado</p>
+                    <span class="tech-card__badge">Fundamental</span>
+                </div>
+                <div class="tech-card tech-card--required">
+                    <div class="tech-card__icon tech-card__icon--normalization">🔧</div>
+                    <h4 class="tech-card__name">Normalizacion</h4>
+                    <p class="tech-card__desc">1FN, 2FN, 3FN, FNBC</p>
+                    <span class="tech-card__badge">Fundamental</span>
+                </div>
+                <div class="tech-card tech-card--required">
+                    <div class="tech-card__icon tech-card__icon--sql">💾</div>
+                    <h4 class="tech-card__name">SQL Avanzado</h4>
+                    <p class="tech-card__desc">Joins, Subconsultas, Vistas</p>
+                    <span class="tech-card__badge">Obligatorio</span>
+                </div>
+                <div class="tech-card tech-card--required">
+                    <div class="tech-card__icon tech-card__icon--postgresql">🐘</div>
+                    <h4 class="tech-card__name">PostgreSQL</h4>
+                    <p class="tech-card__desc">SGBD Relacional</p>
+                    <span class="tech-card__badge">Obligatorio</span>
+                </div>
+                <div class="tech-card tech-card--required">
+                    <div class="tech-card__icon tech-card__icon--mongodb">🍃</div>
+                    <h4 class="tech-card__name">MongoDB</h4>
+                    <p class="tech-card__desc">Base de datos NoSQL</p>
+                    <span class="tech-card__badge">Obligatorio</span>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--mysql">🐬</div>
+                    <h4 class="tech-card__name">MySQL</h4>
+                    <p class="tech-card__desc">SGBD Alternativo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== METODOLOGIA ===== -->
+    <section id="metodologia" class="metodologia">
+        <div class="container">
+            <div class="section-header">
+                <h2>📋 Metodologia de Trabajo</h2>
+                <p>Ruta de aprendizaje con acompanamiento docente y trabajo autonomo</p>
+            </div>
+            <div class="metodo-grid">
+                <div class="metodo-card metodo-card--weekly">
+                    <div class="metodo-card__header">
+                        <div class="metodo-card__icon">👨‍🏫</div>
+                        <div>
+                            <h3 class="metodo-card__title">Clase (Acompanamiento)</h3>
+                            <span class="metodo-card__subtitle">Sesion presencial teorico-practica</span>
+                        </div>
+                    </div>
+                    <div class="metodo-card__content">
+                        <p>Sesion presencial donde se presentan los conceptos teoricos y se realizan ejercicios practicos guiados.</p>
+                        <ul class="metodo-card__list">
+                            <li>Exposicion de conceptos teoricos</li>
+                            <li>Ejercicios practicos en clase</li>
+                            <li>Trabajo con herramientas SGBD</li>
+                            <li>Resolucion de dudas</li>
+                            <li>Retroalimentacion inmediata</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="metodo-card metodo-card--planning">
+                    <div class="metodo-card__header">
+                        <div class="metodo-card__icon">📝</div>
+                        <div>
+                            <h3 class="metodo-card__title">Trabajo Autonomo</h3>
+                            <span class="metodo-card__subtitle">Actividades independientes</span>
+                        </div>
+                    </div>
+                    <div class="metodo-card__content">
+                        <p>Actividades de refuerzo y profundizacion que el estudiante realiza de forma independiente.</p>
+                        <ul class="metodo-card__list">
+                            <li>Talleres practicos</li>
+                            <li>Foros de discusion</li>
+                            <li>Quizzes de autoevaluacion</li>
+                            <li>Lectura y preparacion de temas</li>
+                            <li>Desarrollo del proyecto final</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ROADMAP ===== -->
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2>🗺️ Roadmap del Semestre</h2>
+                <p>Haz clic en cada semana para marcarla como completada</p>
+            </div>
+
+            <!-- Filtros -->
+            <div class="roadmap__filters">
+                <button class="filter-btn active" data-filter="all">📋 Todas</button>
+                <button class="filter-btn" data-filter="parcial">⭐ Parciales</button>
+                <button class="filter-btn" data-filter="pending">⏳ Pendientes</button>
+                <button class="filter-btn" data-filter="completed">✅ Completadas</button>
+            </div>
+
+            <!-- Container dinamico para cortes y semanas -->
+            <div id="roadmapContainer"></div>
+        </div>
+    </section>
+
+    <!-- ===== EVALUACION ===== -->
+    <section id="evaluacion" class="evaluacion">
+        <div class="container">
+            <div class="section-header">
+                <h2>📊 Sistema de Evaluacion</h2>
+                <p>Evaluacion continua por cortes academicos</p>
+            </div>
+            <div class="eval-grid">
+                <div class="eval-card eval-card--weekly">
+                    <div class="eval-card__icon">📝</div>
+                    <div class="eval-card__percent">30%</div>
+                    <h4 class="eval-card__title">Primer Corte</h4>
+                    <p class="eval-card__desc">
+                        Fundamentos, Modelo ER<br>
+                        Conversion al modelo relacional
+                    </p>
+                </div>
+                <div class="eval-card eval-card--entrega">
+                    <div class="eval-card__icon">⚡</div>
+                    <div class="eval-card__percent">30%</div>
+                    <h4 class="eval-card__title">Segundo Corte</h4>
+                    <p class="eval-card__desc">
+                        Normalizacion<br>
+                        SQL Avanzado y Optimizacion
+                    </p>
+                </div>
+                <div class="eval-card eval-card--final">
+                    <div class="eval-card__icon">🎓</div>
+                    <div class="eval-card__percent">40%</div>
+                    <h4 class="eval-card__title">Tercer Corte</h4>
+                    <p class="eval-card__desc">
+                        Administracion SGBD<br>
+                        NoSQL + Proyecto Final
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BADGES ===== -->
+    <section id="badges" class="badges">
+        <div class="container">
+            <div class="section-header">
+                <h2>🏆 Sistema de Logros</h2>
+                <p>Desbloquea badges a medida que avanzas en el curso</p>
+            </div>
+            <div class="badges-grid" id="badgesContainer">
+                <!-- Renderizado dinamico por JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__logo">CORHUILA</div>
+                <div class="footer__links">
+                    <a href="#">Ingenieria de Sistemas</a>
+                    <a href="#">Campus Virtual</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <p class="footer__copy">
+                    &copy; 2026 Corporacion Universitaria del Huila - CORHUILA<br>
+                    Modelado y Gestion de Bases de Datos - Semestre 2026-1
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== BOTON SCROLL TOP ===== -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Volver arriba">↑</button>
+
+    <!-- ===== MODAL RESET ===== -->
+    <div class="modal" id="resetModal">
+        <div class="modal__content">
+            <div class="modal__header">
+                <div class="modal__icon">🔄</div>
+                <h3 class="modal__title">Reiniciar progreso?</h3>
+                <p class="modal__desc">Esta accion eliminara todo tu progreso guardado. No se puede deshacer.</p>
+            </div>
+            <div class="modal__actions">
+                <button class="modal__btn modal__btn--cancel" id="modalCancel">Cancelar</button>
+                <button class="modal__btn modal__btn--confirm" id="modalConfirm">Reiniciar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL BADGE ===== -->
+    <div class="modal" id="badgeModal">
+        <div class="modal__content">
+            <div class="modal__header">
+                <div class="modal__icon" id="badgeModalIcon">🏆</div>
+                <h3 class="modal__title" id="badgeModalTitle">Badge Desbloqueado!</h3>
+                <p class="modal__desc" id="badgeModalDesc">Has desbloqueado un nuevo logro.</p>
+            </div>
+            <div class="modal__actions">
+                <button class="modal__btn modal__btn--confirm" id="badgeModalClose">Genial!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="js/app.js"></script>
+</body>
+</html>
