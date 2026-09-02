@@ -1,0 +1,206 @@
+@startuml Sistema de Reservas Turísticas - BPMN Formal
+
+!define POOL_CLIENTE #E3F2FD
+!define POOL_RECEPCIONISTA #C8E6C9
+!define POOL_SISTEMA #FFF9C4
+!define POOL_LOGISTICA #FFCCBC
+!define POOL_CONTABILIDAD #E1BEE7
+
+skinparam swimlaneWidth 300
+
+title Sistema de Reservas Turísticas - Diagrama BPMN
+
+|#E3F2FD|POOL: Cliente|
+|#C8E6C9|POOL: Recepcionista|
+|#FFF9C4|POOL: Sistema|
+|#FFCCBC|POOL: Logística|
+|#E1BEE7|POOL: Contabilidad|
+
+|POOL: Cliente|
+start
+:⚪ **Evento Inicio**
+Necesidad de servicio turístico]
+
+:📋 Solicitar información;
+
+|POOL: Recepcionista|
+:📞 Atender solicitud;
+
+:🔍 Consultar servicios
+parametrizados;
+
+|POOL: Sistema|
+:✓ Verificar parametrización:
+▪ Clientes
+▪ Atractivos
+▪ Alimentación
+▪ Transporte;
+
+if (◇ ¿Datos completos?) then (✓ Sí)
+  |POOL: Recepcionista|
+  
+  :📊 Presentar opciones
+  disponibles;
+  
+  |POOL: Cliente|
+  :✓ Seleccionar servicios;
+  
+  |POOL: Recepcionista|
+  :📝 **Tarea: Crear Reserva**
+  ▪ Registrar cliente
+  ▪ Asignar servicios
+  ▪ Calcular trayectos transporte;
+  
+  if (◇ ¿Aplicar descuento?) then (✓ Sí)
+    :💰 Aplicar descuento
+    (% o valor fijo)
+    + Registrar concepto;
+  else (✗ No)
+  endif
+  
+  |POOL: Sistema|
+  :🧮 Calcular valor proyectado;
+  
+  :🔢 Generar N° Reserva;
+  
+  :💾 **Persistir reserva**
+  (Estado: Proyectada);
+  
+  |POOL: Recepcionista|
+  :📄 Generar reporte preliminar;
+  
+  |POOL: Cliente|
+  if (◇ ¿Confirmar reserva?) then (✓ Sí)
+    
+    if (◇ ¿Realizar anticipo?) then (✓ Sí)
+      :💳 Pagar anticipo;
+      
+      |POOL: Sistema|
+      :💾 Registrar pago parcial;
+    else (✗ No)
+    endif
+    
+    |POOL: Sistema|
+    :🔒 **Confirmar reserva**
+    (Estado: Confirmada - Inmutable);
+    
+    :📧 Enviar notificación
+    a Logística;
+    
+    ' ===== SEPARADOR FASE LOGÍSTICA =====
+    
+    |POOL: Logística|
+    :⚪ **Evento**: Reserva recibida]
+    
+    :📋 Revisar servicios
+    proyectados;
+    
+    :📅 Esperar fecha de inicio;
+    
+    repeat
+      :🚀 Coordinar prestación
+      de servicio;
+      
+      if (◇ ¿Servicio ejecutado?) then (✓ Sí)
+        :✅ Marcar como PRESTADO;
+        
+        |POOL: Sistema|
+        :💾 Actualizar estado servicio
+        (Estado: Ejecutado);
+        
+        |POOL: Logística|
+        
+        if (◇ ¿Modificación requerida?) then (✓ Sí)
+          :➕ Solicitar cambio;
+          
+          |POOL: Recepcionista|
+          :✓ Autorizar modificación;
+          
+          |POOL: Sistema|
+          :💾 Registrar servicio adicional;
+        else (✗ No)
+        endif
+        
+        |POOL: Logística|
+        :💸 Registrar **costo operacional**
+        del atractivo;
+        
+        |POOL: Sistema|
+        :💾 Almacenar egreso operativo;
+        
+      else (✗ No ejecutado)
+        :❌ Registrar causal:
+        ▪ Tiempo
+        ▪ Salud
+        ▪ Otra novedad;
+        
+        |POOL: Sistema|
+        :💾 Excluir de valor facturable;
+      endif
+      
+    repeat while (◇ ¿Más servicios pendientes?) is (✓ Sí)
+    -> ✗ No;
+    
+    |POOL: Logística|
+    :✅ Completar ejecución;
+    
+    |POOL: Sistema|
+    :🧮 Calcular valor facturable
+    (solo servicios ejecutados);
+    
+    :📄 Generar factura final;
+    
+    |POOL: Recepcionista|
+    :📊 Presentar factura;
+    
+    |POOL: Cliente|
+    :💳 Realizar pago final;
+    
+    |POOL: Sistema|
+    :💾 Registrar ingreso total;
+    
+    :📧 Notificar Contabilidad;
+    
+    ' ===== SEPARADOR FASE CONTABILIDAD =====
+    
+    |POOL: Contabilidad|
+    :⚪ **Evento**: Datos financieros]
+    
+    :📥 Registrar **INGRESO**
+    (Pasos 1 y 2);
+    
+    :📤 Registrar **EGRESO**
+    (Paso 3 - Costos operacionales);
+    
+    :🧮 Calcular flujo de caja:
+    **Ingresos - Egresos**;
+    
+    :📊 Generar trazabilidad
+    financiera completa;
+    
+    :📈 Actualizar dashboard;
+    
+    :⚫ **Evento Fin**
+    Proceso completado]
+    stop
+    
+  else (✗ No)
+    |POOL: Recepcionista|
+    :❌ Cancelar reserva;
+    
+    :⚫ **Evento Fin**
+    Proceso cancelado]
+    stop
+  endif
+  
+else (✗ No)
+  |POOL: Recepcionista|
+  :❌ Informar falta de
+  parametrización;
+  
+  :⚫ **Evento Fin**
+  Datos incompletos]
+  stop
+endif
+
+@enduml

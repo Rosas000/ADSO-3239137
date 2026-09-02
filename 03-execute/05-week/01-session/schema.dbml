@@ -1,0 +1,22 @@
+Sistema de gesocalización
+
+** Realizar seguimiento a un envío, se debe conocer con excatitud lugar de nueva traza, así como cada uno los lugares por dónde ha pasado el producto. 
+Concoer desde barrio dónde este ubicado, es decir la presición de a este nivel. 
+
+-- locations
+- continent     [id, code, name, descrition]
+- country       [id, code, name, descrition, continent_id]
+- estate        [id, code, name, descrition, country_id]
+- city          [id, code, name, descrition, estate_id]
+- locality      [id, code, name, descrition, city_id]
+- neighborhood  [id, code, name, descrition, address, locality_id]
+
+--product
+- product       [id, name, price, description]
+
+-- trace
+shipping_order  [id, neighborhood_origin, neighborhood_destination, product_id ]
+trace           [id, shipping_order_id, neighborhood_status, enum('Lugar de envío', 'En transito', 'Lugar destino')]
+
+MER:
+MR:

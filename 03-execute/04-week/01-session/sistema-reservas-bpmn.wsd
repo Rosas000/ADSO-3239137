@@ -1,0 +1,196 @@
+@startuml Sistema de Reservas Turísticas - BPMN
+
+title Sistema de Reservas Turísticas - Diagrama BPMN con Piscinas
+
+|#LightBlue|Cliente|
+|#LightGreen|Recepcionista|
+|#AntiqueWhite|Sistema|
+|#LightCoral|Logística|
+|#Lavender|Contabilidad|
+
+|Cliente|
+start
+:Solicitar información
+de servicios turísticos;
+
+|Recepcionista|
+:Consultar disponibilidad
+de servicios;
+
+|Sistema|
+:Validar servicios
+parametrizados:
+- Atractivos
+- Alimentación
+- Transporte;
+
+if (¿Servicios disponibles?) then (Sí)
+  |Recepcionista|
+  :Explicar opciones al cliente;
+  
+  |Cliente|
+  :Seleccionar servicios
+  deseados;
+  
+  |Recepcionista|
+  :Registrar datos del cliente:
+  - Nombre, documento
+  - Teléfono, tipo sangre
+  - Cantidad personas;
+  
+  :Crear reserva con servicios:
+  - Atractivos seleccionados
+  - Alimentación
+  - Transporte (calcular trayectos);
+  
+  if (¿Aplicar descuento?) then (Sí)
+    :Aplicar descuento:
+    - Por porcentaje o valor fijo
+    - Registrar concepto
+    - Por tipo de producto;
+  else (No)
+  endif
+  
+  |Sistema|
+  :Calcular valor proyectado
+  de la reserva;
+  
+  :Generar N° de reserva;
+  
+  |Recepcionista|
+  :Mostrar reporte al cliente:
+  - N° reserva
+  - Servicios incluidos
+  - Total a pagar;
+  
+  |Cliente|
+  if (¿Confirmar reserva?) then (Sí)
+    :Realizar anticipo o
+    pago parcial (opcional);
+    
+    |Sistema|
+    :Confirmar reserva
+    (Inmutable);
+    
+    note right
+      La reserva NO permite
+      modificaciones una vez
+      confirmada
+    end note
+    
+    :Notificar a Logística;
+    
+    |Logística|
+    :Recibir reserva confirmada;
+    
+    :Revisar servicios proyectados;
+    
+    :Esperar fecha de inicio
+    de servicios;
+    
+    while (¿Servicios pendientes?) is (Sí)
+      :Coordinar prestación
+      del servicio;
+      
+      if (¿Servicio ejecutado?) then (Sí)
+        :Marcar como **prestado**;
+        
+        |Sistema|
+        :Actualizar estado
+        de ejecución;
+        
+        |Logística|
+        if (¿Requiere servicio adicional
+        o modificación?) then (Sí)
+          :Agregar/modificar servicio;
+          
+          |Recepcionista|
+          :Autorizar cambio;
+          
+          |Sistema|
+          :Registrar servicio adicional
+          o modificación;
+        else (No)
+        endif
+        
+        |Logística|
+        :Registrar **costo operacional**
+        del atractivo ejecutado;
+        
+        note right
+          Costo operacional:
+          - Es un egreso interno
+          - No es el precio de venta
+          - Se registra por cada atractivo
+        end note
+        
+        |Sistema|
+        :Almacenar costo operativo;
+        
+      else (No ejecutado)
+        :Registrar causa:
+        - Limitación tiempo
+        - Condición de salud
+        - Otra novedad;
+        
+        |Sistema|
+        :Excluir del valor
+        facturable;
+      endif
+      
+    endwhile (No)
+    
+    |Logística|
+    :Servicios completados;
+    
+    :Calcular valor facturable real
+    (solo servicios ejecutados);
+    
+    |Sistema|
+    :Generar factura final;
+    
+    |Recepcionista|
+    :Presentar factura al cliente;
+    
+    |Cliente|
+    :Realizar pago final;
+    
+    |Sistema|
+    :Registrar ingreso total;
+    
+    :Notificar a Contabilidad;
+    
+    |Contabilidad|
+    :Registrar **ingreso**
+    (de reserva + servicios ejecutados);
+    
+    :Registrar **egreso**
+    (costos operacionales);
+    
+    :Calcular flujo de caja:
+    Ingresos - Egresos;
+    
+    :Generar reporte financiero
+    de la reserva;
+    
+    :Actualizar dashboard
+    de trazabilidad;
+    
+    stop
+    
+  else (No)
+    |Recepcionista|
+    :Cancelar proceso;
+    stop
+  endif
+  
+else (No)
+  |Recepcionista|
+  :Informar falta de disponibilidad;
+  
+  |Cliente|
+  :Buscar alternativas;
+  stop
+endif
+
+@enduml

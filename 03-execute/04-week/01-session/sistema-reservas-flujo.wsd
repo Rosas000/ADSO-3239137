@@ -1,0 +1,100 @@
+@startuml Sistema de Reservas Turísticas - Flujo General
+
+title Sistema de Reservas Turísticas - Flujo de Procesos
+
+|Parametrización|
+start
+:Parametrizar **Clientes**
+- Nombre, documento, teléfono
+- Tipo de sangre, etc.;
+
+:Parametrizar **Atractivos**
+- Nombre, precio, descripción
+- Lugar, dificultad
+- Precondiciones, fotos;
+
+:Parametrizar **Alimentación**
+- Restaurantes
+- Platos por restaurante
+- Precios menú del día;
+
+:Parametrizar **Transporte**
+- Valor fijo: $15.000 por trayecto
+- Cálculo manual de trayectos;
+
+|#AntiqueWhite|Paso 1: Reserva|
+
+:Crear **Reserva** (proyección);
+note right
+  Relación N:N entre
+  Clientes y Servicios
+end note
+
+:Seleccionar servicios:
+- Atractivos
+- Alimentación
+- Transporte;
+
+:Aplicar **Descuentos** (opcional)
+- Por porcentaje o valor fijo
+- Con descripción del concepto
+- Por tipo de producto;
+
+:Calcular **valor proyectado**;
+
+:Generar reporte de reserva:
+- N° reserva, cliente
+- Cantidad personas, fecha
+- Servicios seleccionados
+- Total proyectado;
+
+:Confirmar reserva
+(No permite modificaciones);
+
+|#LightBlue|Paso 2: Ejecución de Servicios|
+
+if (¿Al menos 1 servicio ejecutado\nO existe anticipo/pago?) then (Sí)
+  :Marcar servicios **prestados**;
+  
+  :Permitir agregar/modificar/eliminar
+  servicios adicionales;
+  
+  :Calcular **valor facturable real**
+  (solo servicios ejecutados);
+  
+else (No)
+  :Servicios en estado **pendiente**;
+  :Mostrar en dashboard;
+endif
+
+|#LightGreen|Paso 3: Control Operativo|
+
+if (¿Ejecución de servicios iniciada?) then (Sí)
+  :Registrar **costos operacionales**
+  por cada atractivo ejecutado;
+  note right
+    Costo operacional ≠ Precio de venta
+    Representa gasto interno
+  end note
+else (No)
+  :Paso 3 **inactivo**;
+  stop
+endif
+
+|#LightCoral|Paso 4: Facturación y Caja|
+
+:Registrar **ingresos**
+(de Pasos 1 y 2);
+
+:Registrar **egresos**
+(de Paso 3);
+
+:Calcular flujo de caja:
+Ingresos - Egresos;
+
+:Generar trazabilidad financiera
+completa;
+
+stop
+
+@enduml

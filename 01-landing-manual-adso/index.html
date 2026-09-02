@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual del Repositorio ADSO 3413974</title>
+  <meta name="description" content="Landing page tipo manual para orientar a los aprendices sobre la estructura del repositorio ADSO 3413974, el flujo de fork y la organización por fases, week, session y optional activity.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">SENA · ADSO · Ficha 3413974</span>
+        <h1>Manual de uso del repositorio del proyecto formativo</h1>
+        <p class="lead">
+          Esta landing page explica cómo está organizado el repositorio principal, cómo debe trabajar cada aprendiz desde su fork y cómo se usarán las carpetas de fases, semanas, sesiones y actividades opcionales.
+        </p>
+        <div class="hero-actions">
+          <a href="#flujo" class="btn btn-primary">Ver flujo del aprendiz</a>
+          <a href="#mapa-formativo" class="btn btn-secondary">Explorar mapa formativo</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <div class="metric-card">
+          <strong>4</strong>
+          <span>Fases formativas</span>
+        </div>
+        <div class="metric-card">
+          <strong>12</strong>
+          <span>Actividades de proyecto</span>
+        </div>
+        <div class="metric-card">
+          <strong>48</strong>
+          <span>Subdirectorios base</span>
+        </div>
+        <div class="metric-card">
+          <strong>1 fork</strong>
+          <span>por aprendiz</span>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-tag">01</span>
+          <div>
+            <h2>¿Qué contiene el repositorio?</h2>
+            <p>El repositorio organiza el proceso formativo en fases y actividades de proyecto. Cada actividad tiene carpetas para guía de aprendizaje, actividad de aprendizaje, material de apoyo y evidencia.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>00-planning</h3>
+            <p>Espacio para lineamientos generales, documentos marco, cronogramas o insumos de planeación del proceso.</p>
+          </article>
+          <article class="card">
+            <h3>02-training-project</h3>
+            <p>Núcleo del proyecto formativo. Aquí se encuentran las fases, actividades, evidencias y la estructura principal del trabajo del aprendiz.</p>
+          </article>
+          <article class="card">
+            <h3>week / session / optional activity</h3>
+            <p>Espacios de trabajo incremental para sesiones semanales, actividades específicas por encuentro y actividades opcionales o de refuerzo.</p>
+          </article>
+        </div>
+
+        <div class="code-card">
+<pre><code>ADSO-3413974/
+├── 00-planning/
+├── 02-training-project/
+│   └── 01-phase/
+│       ├── 01-analysis/
+│       ├── 02-planning/
+│       ├── 03-execution/
+│       └── 04-evaluation/
+├── 02-week/
+│   ├── 01-session/
+│   ├── 02-session/
+│   └── optional-activity/   # si aplica
+├── 03-week/
+│   └── ...
+└── README.md</code></pre>
+        </div>
+
+        <p class="note">
+          Supuesto: las carpetas de semana se irán publicando de forma progresiva con convención <strong>NN-week</strong>, y dentro de cada una podrá existir una o varias <strong>session</strong> y una carpeta de <strong>optional-activity</strong> cuando el instructor la habilite.
+        </p>
+      </div>
+    </section>
+
+    <section id="flujo" class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-tag">02</span>
+          <div>
+            <h2>Flujo de trabajo del aprendiz</h2>
+            <p>El repositorio principal actúa como fuente oficial. Cada aprendiz trabaja sobre su propio fork.</p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="timeline-step">1</span>
+            <div>
+              <h3>Hacer fork del repositorio principal</h3>
+              <p>Cada aprendiz crea una copia del repositorio en su cuenta personal de GitHub. El repositorio principal no se usa como espacio directo de edición del aprendiz.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-step">2</span>
+            <div>
+              <h3>Clonar el fork</h3>
+              <p>El trabajo local se realiza sobre el fork. Desde allí se organizan entregables, avances por semana y evidencias por actividad.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-step">3</span>
+            <div>
+              <h3>Ubicar el trabajo en la carpeta correcta</h3>
+              <p>Si el entregable corresponde al proyecto formativo, debe ir dentro de la fase y actividad asociada. Si corresponde a una sesión semanal, debe quedar dentro de la carpeta week y session correspondiente.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-step">4</span>
+            <div>
+              <h3>Registrar evidencias y materiales</h3>
+              <p>La guía de aprendizaje, la actividad de aprendizaje, el material de apoyo y la evidencia deben mantenerse separados. Esto facilita seguimiento, evaluación y retroalimentación.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-step">5</span>
+            <div>
+              <h3>Subir cambios al fork</h3>
+              <p>El aprendiz publica su avance en su propio repositorio. La revisión por parte del instructor se puede hacer por enlace al fork o por mecanismo definido en clase.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-tag">03</span>
+          <div>
+            <h2>Convención pedagógica por carpeta</h2>
+            <p>Esta distribución permite relacionar competencia, RAP, actividad de aprendizaje y evidencia dentro del ambiente de formación digital.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <h3>01-learning-guide</h3>
+            <p>Guía de aprendizaje e instrucciones del trabajo a desarrollar por el aprendiz.</p>
+          </article>
+          <article class="card">
+            <h3>02-learning-activity</h3>
+            <p>Actividad de aprendizaje: talleres, ejercicios, prácticas, retos o tareas programadas.</p>
+          </article>
+          <article class="card">
+            <h3>03-support-material</h3>
+            <p>Material de apoyo: lecturas, videos, plantillas, recursos de consulta y referencias.</p>
+          </article>
+          <article class="card">
+            <h3>04-evidence-learning</h3>
+            <p>Evidencia del aprendiz: archivos finales, entregables, documentos, código, capturas o productos solicitados.</p>
+          </article>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Espacio</th>
+                <th>Uso</th>
+                <th>Responsable principal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Fase</td>
+                <td>Agrupa actividades de proyecto según el ciclo formativo</td>
+                <td>Instructor</td>
+              </tr>
+              <tr>
+                <td>Actividad de proyecto</td>
+                <td>Relaciona competencia, RAP, actividad de aprendizaje y evidencia</td>
+                <td>Instructor / aprendiz</td>
+              </tr>
+              <tr>
+                <td>Week</td>
+                <td>Organiza el trabajo por semana o corte de seguimiento</td>
+                <td>Instructor</td>
+              </tr>
+              <tr>
+                <td>Session</td>
+                <td>Subdivide una semana en encuentros o sesiones específicas</td>
+                <td>Instructor</td>
+              </tr>
+              <tr>
+                <td>Optional activity</td>
+                <td>Actividad complementaria, de refuerzo o profundización</td>
+                <td>Aprendiz</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="mapa-formativo" class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-tag">04</span>
+          <div>
+            <h2>Mapa formativo del proyecto</h2>
+            <p>Consulta la relación entre fase, competencia, RAP, evidencias, criterios de evaluación e instrumento de evaluación pendiente.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="filter-group">
+            <button class="filter-btn active" data-phase="all">Todas</button>
+            <button class="filter-btn" data-phase="Análisis">Análisis</button>
+            <button class="filter-btn" data-phase="Planeación">Planeación</button>
+            <button class="filter-btn" data-phase="Ejecución">Ejecución</button>
+            <button class="filter-btn" data-phase="Evaluación">Evaluación</button>
+          </div>
+          <input id="searchInput" type="search" placeholder="Buscar por actividad, competencia o RAP">
+        </div>
+
+        <div id="activityContainer" class="activity-list"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-tag">05</span>
+          <div>
+            <h2>Reglas operativas para los aprendices</h2>
+            <p>Use estas reglas como lista de chequeo antes de entregar cada evidencia.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card checklist-card">
+            <h3>Lista de chequeo del aprendiz</h3>
+            <ul class="checklist">
+              <li>Verifiqué que estoy trabajando en mi fork y no en el repositorio principal.</li>
+              <li>Ubique mis archivos en la fase, actividad o week correspondiente.</li>
+              <li>Separé guía, actividad, material de apoyo y evidencia.</li>
+              <li>Nombré mis archivos de forma clara y consistente.</li>
+              <li>Subí el avance a GitHub y validé que los archivos abren correctamente.</li>
+            </ul>
+          </article>
+
+          <article class="card checklist-card">
+            <h3>Control del instructor</h3>
+            <ul class="checklist">
+              <li>Revisar cumplimiento de la estructura del repositorio.</li>
+              <li>Confirmar relación entre competencia, RAP y evidencia presentada.</li>
+              <li>Aplicar criterios de evaluación según la actividad.</li>
+              <li>Definir y publicar el instrumento de evaluación institucional.</li>
+              <li>Retroalimentar al aprendiz sobre calidad técnica y organización documental.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-tag">06</span>
+          <div>
+            <h2>Preguntas frecuentes</h2>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>¿Dónde debo trabajar mis entregables?</summary>
+            <p>En su fork. El repositorio principal es la referencia oficial y no el espacio directo de edición del aprendiz.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Qué pasa si una actividad corresponde a una semana específica?</summary>
+            <p>Puede existir una relación entre la carpeta week y una actividad del proyecto. La ubicación final depende del criterio del instructor para esa sesión.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Qué hago si la actividad es opcional?</summary>
+            <p>Ubíquela en la carpeta de optional activity de la semana o sesión correspondiente, cuando esa carpeta exista.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Dónde van las evidencias?</summary>
+            <p>En la carpeta <strong>04-evidence-learning</strong> de la actividad de proyecto correspondiente, o en la estructura semanal si el instructor definió una entrega por sesión.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p><strong>Manual del Repositorio ADSO 3413974</strong></p>
+      <p>Diseñado para orientar a los aprendices en la navegación, organización y entrega de evidencias dentro del ambiente de formación.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
