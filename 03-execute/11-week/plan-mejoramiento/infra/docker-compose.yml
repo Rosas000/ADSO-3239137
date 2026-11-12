@@ -1,0 +1,95 @@
+# Orquestación de Event Furniture.
+#
+# Preparación única, desde la carpeta plan-mejoramiento:
+#   cp infra/.env.example infra/.env
+#
+# Arranque con un solo comando, desde la carpeta plan-mejoramiento:
+#   docker compose --env-file infra/.env -f infra/docker-compose.yml up --build
+#
+# El flag --env-file es explícito porque con -f Compose no garantiza leer
+# el .env junto al archivo de composición. Sin él las variables salen vacías.
+#
+# APP_KEY puede quedar vacía: el entrypoint de api la genera en el arranque.
+# Los Dockerfiles se agregan en los siguientes commits de infra/.
+
+name: event-furniture
+
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: ef-db
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      TZ: UTC
+      PGTZ: UTC
+    # El puerto no se expone al anfitrión: la API conecta por la red interna.
+    # Exponerlo fallaría si el evaluador ya tiene PostgreSQL en 5432.
+    # Para inspeccionar con un cliente local, descomentar y usar un puerto libre.
+    # ports:
+    #   - "${DB_PORT:-5433}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+    container_name: ef-api
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      APP_KEY: ${APP_KEY:-}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_TIMEZONE: UTC
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${API_PORT:-8000}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 80 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ..
+      dockerfile: infra/docker/app.Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000/api/v1}
+    container_name: ef-app
+    ports:
+      - "${APP_PORT:-8081}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  page:
+    build:
+      context: ..
+      dockerfile: infra/docker/page.Dockerfile
+    container_name: ef-page
+    ports:
+      - "${PAGE_PORT:-8080}:80"
+    restart: unless-stopped
+
+volumes:
+  db_data:
