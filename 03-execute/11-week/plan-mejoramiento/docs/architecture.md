@@ -104,14 +104,14 @@ Service responde 422 por regla violada y 409 por conflicto de estado.
     |   |-- Exceptions/             excepciones de dominio
     |   |-- Http/
     |   |   |-- Controllers/Api/V1/ ArticleController, OrganizerController,
-    |   |   |                       RentalController, ReturnController,
+    |   |   |                       RentalController, RentalReturnController,
     |   |   |                       ReportController, CategoryController,
     |   |   |                       AuthController
     |   |   |-- Requests/           StoreArticleRequest, StoreRentalRequest, ...
     |   |   `-- Resources/          ArticleResource, RentalResource, ...
     |   |-- Models/                 Category, Article, Organizer, Advisor,
-    |   |                           Rental, RentalLine, Return, ReturnLine
-    |   `-- Services/               RentalService, ReturnService, ReportService
+    |   |                           Rental, RentalLine, RentalReturn, RentalReturnLine
+    |   `-- Services/               RentalService, RentalReturnService, ReportService
     |-- bootstrap/                  app.php, registro de manejo de excepciones
     |-- config/
     |-- database/
@@ -133,7 +133,7 @@ Service responde 422 por regla violada y 409 por conflicto de estado.
 | RN01 límite de 5 | RentalService | Suma de unidades pendientes del organizador antes de crear |
 | RN02 plazo de 3 días | RentalService | due_at calculado en UTC, nunca aceptado del cliente |
 | RN03 bloqueo por vencidos | RentalService | Consulta de alquileres vencidos, primera validación |
-| RN04 inventario acotado | RentalService, ReturnService, DB | Bloqueo de fila más CHECK en PostgreSQL |
+| RN04 inventario acotado | RentalService, RentalReturnService, DB | Bloqueo de fila más CHECK en PostgreSQL |
 | RN05 datos congelados | RentalService | Copia de reference y name al crear la línea |
 | RN06 sin borrado físico | Rutas y modelos | Sin DELETE en operaciones, SoftDeletes en Article |
 
@@ -368,3 +368,55 @@ Base de datos de pruebas aislada, recreada en cada ejecución.
 
 No se implementan pruebas de carga ni medición de rendimiento:
 están declaradas fuera de alcance en la especificación.
+
+---
+
+## 15. Convención de nombres de la devolución
+
+La entidad de devolución se nombra RentalReturn, no Return.
+
+Razón: return es palabra reservada de PHP. Declarar class Return produce un error
+de sintaxis y el archivo no compila. El prefijo Rental elimina el conflicto y
+además expresa a qué pertenece la devolución.
+
+Nombres que cambian:
+
+| Elemento | Nombre |
+|:---|:---|
+| Modelo de cabecera | RentalReturn |
+| Modelo de detalle | RentalReturnLine |
+| Tabla de cabecera | rental_returns |
+| Tabla de detalle | rental_return_lines |
+| Clave foránea en el detalle | rental_return_id |
+| Controlador | RentalReturnController |
+| Servicio | RentalReturnService |
+
+Nombres que no cambian, y por qué:
+
+| Elemento | Nombre | Razón |
+|:---|:---|:---|
+| Ruta | POST /api/v1/rentals/{id}/returns | en la URL es el recurso REST, no un identificador de PHP |
+| Excepción | InvalidReturnQuantityException | no es la palabra reservada exacta; nombra la condición, no la entidad |
+| Prueba | ReturnCreateTest | nombra el endpoint que verifica |
+| Página de React | ReturnCreate | JavaScript no reserva Return; nombra la acción del usuario |
+
+---
+
+## 16. Restricciones de integridad
+
+El detalle completo está en data-model.md. Las que la aplicación debe respetar
+y las pruebas deben verificar:
+
+| Restricción | Tabla | Efecto |
+|:---|:---|:---|
+| articles_total_units_positive | articles | total_units mayor que cero |
+| articles_available_units_range | articles | available_units entre 0 y total_units |
+| rentals_status_allowed | rentals | status solo active o returned |
+| rentals_returned_consistent | rentals | status returned si y solo si returned_at no es nulo |
+| rental_lines_quantity_positive | rental_lines | quantity mayor que cero |
+| rental_lines_returned_within_quantity | rental_lines | returned_quantity entre 0 y quantity |
+| rental_return_lines_quantity_positive | rental_return_lines | quantity mayor que cero |
+
+La igualdad entre la suma de rental_return_lines.quantity y
+rental_lines.returned_quantity no es una restricción de base de datos: la mantiene
+RentalReturnService dentro de la misma transacción. ReturnCreateTest la verifica.
