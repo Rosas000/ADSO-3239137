@@ -13,7 +13,7 @@ Cuatro servicios en contenedores, orquestados con Docker Compose:
 |:---|:---|:---|:---|
 | page | page/ | Nginx sirviendo HTML estático | 8080 |
 | app | app/ | Nginx sirviendo el build de React | 8081 |
-| api | api/ | Nginx con PHP-FPM 8.3 y Laravel 11 | 8000 |
+| api | api/ | Nginx con PHP-FPM 8.3 y Laravel 12 | 8000 |
 | db | — | PostgreSQL 16 | 5432, solo interno |
 
 Topología:
@@ -41,7 +41,7 @@ Fijadas por decisión de proyecto:
 | Componente | Versión | Razón |
 |:---|:---|:---|
 | PHP | 8.3 | Soporte activo y compatibilidad con Laravel 11 |
-| Laravel | 11 | Estructura de arranque simplificada y soporte vigente |
+| Laravel | 12 | Soporte de seguridad vigente a 2026; ver ADR-001 |
 | PostgreSQL | 16 | Bloqueo de fila y restricciones CHECK confiables |
 | React | 18 | API estable, sin dependencia de características experimentales |
 
@@ -50,8 +50,8 @@ Determinadas por el gestor de paquetes:
 | Componente | Versión |
 |:---|:---|
 | Vite | La que instale el esqueleto de React. Se registra en este documento al crear app/package.json |
-| PHPUnit | La que instale Laravel 11. Se registra en este documento al crear api/composer.json |
-| Sanctum | La compatible con Laravel 11 según composer.json |
+| PHPUnit | ^11.5.50, según composer.json |
+| Sanctum | Se agrega por composer require; no viene en el esqueleto de Laravel 12 |
 
 No se fijan de antemano versiones que el gestor resuelve por dependencia,
 para evitar que el documento quede incongruente con los archivos de bloqueo.
