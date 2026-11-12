@@ -40,7 +40,7 @@ Fijadas por decisión de proyecto:
 
 | Componente | Versión | Razón |
 |:---|:---|:---|
-| PHP | 8.3 | Soporte activo y compatibilidad con Laravel 11 |
+| PHP | 8.3 | Soporte activo y compatibilidad con Laravel 12 |
 | Laravel | 12 | Soporte de seguridad vigente a 2026; ver ADR-001 |
 | PostgreSQL | 16 | Bloqueo de fila y restricciones CHECK confiables |
 | React | 18 | API estable, sin dependencia de características experimentales |
@@ -51,7 +51,7 @@ Determinadas por el gestor de paquetes:
 |:---|:---|
 | Vite | La que instale el esqueleto de React. Se registra en este documento al crear app/package.json |
 | PHPUnit | ^11.5.50, según composer.json |
-| Sanctum | Se agrega por composer require; no viene en el esqueleto de Laravel 12 |
+| Sanctum | ^4.4, agregado por composer require; no viene en el esqueleto de Laravel 12 |
 
 No se fijan de antemano versiones que el gestor resuelve por dependencia,
 para evitar que el documento quede incongruente con los archivos de bloqueo.
