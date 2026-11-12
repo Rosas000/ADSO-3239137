@@ -299,7 +299,7 @@ y acentuación correctas. Identificadores de código en inglés.
 Verificable por revisión del código y de las respuestas de la API.
 
 ### RNF03 — Entorno reproducible
-El entorno completo levanta con un único comando docker compose up.
+El entorno completo levanta con un único comando, desde plan-mejoramiento: docker compose --env-file infra/.env -f infra/docker-compose.yml up --build
 Incluye base de datos, API, aplicación y sitio público. Los datos iniciales
 se cargan con un sembrador que consume la API. Verificable en máquina limpia.
 
