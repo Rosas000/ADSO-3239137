@@ -61,16 +61,14 @@ Las versiones y decisiones técnicas definitivas quedarán en `docs/architecture
 
 ## Estructura de la entrega
 
-```text
-plan-mejoramiento/
-[G docs/     # constitution, spec, plan, architecture, data-model, api-contract, tasks y al menos 3 ADR
-[G api/      # Backend (Laravel)
-[G app/      # Frontend (React)
-[G page/     # Sitio público estático
-[G infra/    # Contenedores y base de datos
-[G tool/     # Scripts de apoyo
- README.md
-```
+    plan-mejoramiento/
+    |-- docs/     # constitution, spec, plan, architecture, data-model, api-contract, tasks y al menos 3 ADR
+    |-- api/      # Backend (Laravel)
+    |-- app/      # Frontend (React)
+    |-- page/     # Sitio público estático
+    |-- infra/    # Contenedores y base de datos
+    |-- tool/     # Scripts de apoyo
+    `-- README.md
 
 ---
 
