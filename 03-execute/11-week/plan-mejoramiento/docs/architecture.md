@@ -14,7 +14,7 @@ Cuatro servicios en contenedores, orquestados con Docker Compose:
 | page | page/ | Nginx sirviendo HTML estático | 8080 |
 | app | app/ | Nginx sirviendo el build de React | 8081 |
 | api | api/ | Nginx con PHP-FPM 8.3 y Laravel 11 | 8000 |
-| db | — | PostgreSQL 16 | 5432 |
+| db | — | PostgreSQL 16 | 5432, solo interno |
 
 Topología:
 
@@ -306,13 +306,13 @@ confunden con las carpetas de código api/ y app/ de la raíz:
     |   `-- page.conf
     `-- .env.example
 
-Cada Dockerfile declara en el compose su contexto de construcción:
-api.Dockerfile usa ../api como contexto, app.Dockerfile usa ../app,
-y page.Dockerfile usa ../page.
+El contexto de construcción de los tres servicios es la raíz de
+plan-mejoramiento, declarado como context: .. en el compose. Cada imagen
+se referencia con dockerfile: infra/docker/nombre.Dockerfile.
 
 Arranque con un solo comando:
 
-    docker compose up --build
+    docker compose --env-file infra/.env -f infra/docker-compose.yml up --build
 
 Orden de dependencia: db primero, api espera a que db responda mediante
 healthcheck, app y page arrancan en paralelo. Esto evita que api intente
@@ -359,7 +359,7 @@ SOP01 y SOP02 se cubren con pruebas de autenticación y de consulta de categorí
 
 Ejecución con un solo comando:
 
-    docker compose exec api php artisan test
+    docker compose --env-file infra/.env -f infra/docker-compose.yml exec api php artisan test
 
 El script tool/run-tests.sh envuelve ese comando para cumplir RNF04
 desde la raíz del proyecto. No añade funcionalidad: solo lo invoca.
@@ -420,3 +420,68 @@ y las pruebas deben verificar:
 La igualdad entre la suma de rental_return_lines.quantity y
 rental_lines.returned_quantity no es una restricción de base de datos: la mantiene
 RentalReturnService dentro de la misma transacción. ReturnCreateTest la verifica.
+
+---
+
+## 17. Operación del entorno
+
+### Preparación y arranque
+
+Preparación única, desde la carpeta plan-mejoramiento:
+
+    cp infra/.env.example infra/.env
+
+Arranque con un solo comando, desde la misma carpeta:
+
+    docker compose --env-file infra/.env -f infra/docker-compose.yml up --build
+
+El flag --env-file es explícito a propósito. Con -f, Compose no garantiza leer
+el .env ubicado junto al archivo de composición, y las variables quedarían
+vacías. Declararlo elimina la ambigüedad y cumple RNF03.
+
+Este es el mismo comando que aparece en spec.md (RNF03), en el comentario de
+docker-compose.yml y en el README. No hay dos formas de arrancar el proyecto.
+
+### Contexto de construcción
+
+Los tres servicios usan context: .. — la raíz de plan-mejoramiento.
+
+Razón: cada Dockerfile necesita copiar tanto el código de su carpeta
+(api/, app/, page/) como las configuraciones de infra/nginx/. Docker prohíbe
+COPY fuera del contexto de construcción, así que un contexto restringido a la
+carpeta de código haría imposible alcanzar infra/ y la construcción fallaría.
+
+### Clave de la aplicación
+
+APP_KEY puede quedar vacía en infra/.env. El entrypoint del contenedor api
+la genera en el arranque si no encuentra valor, de modo que no haya un paso
+manual que rompa el requisito de un solo comando.
+
+La clave generada en runtime es efímera: se regenera al recrear el contenedor.
+Los tokens de Sanctum no dependen de APP_KEY, por lo que las sesiones de los
+asesores no se invalidan. Para fijar una clave estable se genera con
+php artisan key:generate --show y se pega en infra/.env.
+
+### Healthchecks
+
+| Servicio | Verificación | Propósito |
+|:---|:---|:---|
+| db | pg_isready | que PostgreSQL acepte conexiones, no solo que el contenedor arranque |
+| api | nc -z 127.0.0.1 80 | que Nginx esté escuchando |
+
+api espera a db con condition: service_healthy. app espera a api con la misma
+condición. page no depende de nadie.
+
+El healthcheck de api verifica disponibilidad del puerto, no un endpoint de
+salud. No se crea un endpoint /health porque no está en la especificación y
+añadiría alcance no declarado.
+
+### Puerto de la base de datos
+
+PostgreSQL no se expone al equipo anfitrión. La API conecta por la red interna
+de Docker usando el nombre de servicio db.
+
+Razón: exponer 5432 haría fallar el arranque si el evaluador ya tiene PostgreSQL
+en ese puerto, y no aporta nada al cumplimiento del acta. El bloque ports queda
+comentado en docker-compose.yml para quien necesite inspeccionar la base de datos
+con un cliente local, usando un puerto alternativo.
