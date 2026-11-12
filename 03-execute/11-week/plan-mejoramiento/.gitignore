@@ -1,0 +1,24 @@
+# Secretos: nunca se versionan (RNF05)
+.env
+.env.local
+infra/.env
+api/.env
+
+# Dependencias: se instalan, no se versionan (RNF05)
+api/vendor/
+app/node_modules/
+
+# Artefactos de compilación
+app/dist/
+
+# Registros de Laravel
+api/storage/logs/*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Nota: api/storage/framework y api/bootstrap/cache no se ignoran desde aquí.
+# Laravel trae sus propios .gitignore internos, que excluyen el contenido
+# pero conservan la carpeta versionada. Ignorarlas desde la raíz haría que
+# Git no las registrara y el arranque fallaría por directorio inexistente.
