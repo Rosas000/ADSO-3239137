@@ -46,8 +46,8 @@ todo asesor autenticado puede ejecutar todas las operaciones del sistema.
 | Advisor | Operador autenticado que registra las operaciones. |
 | Rental | Operación de alquiler. Cabecera con organizador, fechas y estado. |
 | RentalLine | Detalle del alquiler: artículo, cantidad y datos congelados del catálogo. |
-| Return | Registro de devolución asociado a un alquiler. |
-| ReturnLine | Detalle de qué artículos y cuántas unidades se devolvieron. |
+| RentalReturn | Registro de devolución asociado a un alquiler. |
+| RentalReturnLine | Detalle de qué artículos y cuántas unidades se devolvieron. |
 
 El detalle de campos y relaciones está en data-model.md.
 
@@ -101,7 +101,7 @@ Lo congelado en la línea de la operación no sigue al catálogo.
 ### RN06 — Sin borrado físico
 Las operaciones y devoluciones no se borran; el catálogo solo tiene baja lógica.
 
-- Rental, RentalLine, Return y ReturnLine no tienen endpoint DELETE.
+- Rental, RentalLine, RentalReturn y RentalReturnLine no tienen endpoint DELETE.
 - Article solo admite baja lógica mediante deleted_at.
 - Un artículo dado de baja no aparece en el catálogo ni puede alquilarse,
   pero sus líneas históricas siguen siendo consultables.
@@ -147,6 +147,7 @@ Como asesor quiero registrar un artículo en el catálogo para poder alquilarlo.
 
 Criterios de aceptación:
 - Referencia única, nombre, categoría y total de unidades obligatorios.
+- El total de unidades debe ser mayor que cero.
 - Al crear, available_units igual a total_units.
 - Referencia duplicada responde 409 Conflict.
 - Categoría inexistente responde 422.
@@ -231,7 +232,7 @@ Criterios de aceptación:
 - Permite devolución parcial o total por línea.
 - Devolver más de lo pendiente responde 422.
 - Incrementa available_units sin exceder total_units (RN04).
-- Crea Return y ReturnLine; no borra ni edita el alquiler (RN06).
+- Crea RentalReturn y RentalReturnLine; no borra ni edita el alquiler (RN06).
 - Cuando no quedan unidades pendientes, el alquiler pasa a estado returned.
 - Una devolución libera el bloqueo por vencimiento (RN03).
 - Éxito: 201 Created.
