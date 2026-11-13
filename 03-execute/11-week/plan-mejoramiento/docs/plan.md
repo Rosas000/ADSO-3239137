@@ -38,7 +38,7 @@ y su corrección son:
 | 2 Cambios en docs | Sin commits de trabajo en docs | Un commit por documento, más correcciones de congruencia |
 | 3 Congruencia del spec | Spec incompleto y desconectado del código | Criterios verificables y tabla de trazabilidad |
 | 4 Calidad del sitio page | Sitio no cumplió el veredicto | Sitio estático propio que presenta el producto |
-| 5 Completitud de tareas | Tareas sin implementar | 23 tareas con prueba que las respalda |
+| 5 Completitud de tareas | Tareas sin implementar | 25 tareas con prueba (23 del acta mas 2 SOP declarados) que las respalda |
 | 6 Extras fuera del spec | Funciones no especificadas | Principio P7 y lista explícita de fuera de alcance |
 | 7 Código en español | Cumplía | Se mantiene y se refuerza la acentuación correcta |
 
@@ -231,7 +231,7 @@ Este bloque no se negocia ni se pospone por retrasos en event-furniture.
 2. Cuatro o más commits en cada una de las seis subcarpetas.
 3. Los diez documentos de especificación existen y son congruentes entre sí.
 4. Las operaciones de soporte declaradas están implementadas y probadas.
-5. Las 23 tareas de tasks.md están implementadas y marcadas.
+5. Las 25 tareas de tasks.md (10 historias de usuario más 15 de soporte e infraestructura) están implementadas y marcadas.
 6. Las seis reglas de negocio se validan en el backend y tienen prueba.
 7. Mínimo 15 archivos de prueba, ejecutables con un comando.
 8. Los nombres de archivo de prueba coinciden con la tabla de trazabilidad.
