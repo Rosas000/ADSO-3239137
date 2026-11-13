@@ -146,7 +146,7 @@ Estrategia: bloqueo pesimista de fila dentro de una transacción. Ver ADR-002.
 Como asesor quiero registrar un artículo en el catálogo para poder alquilarlo.
 
 Criterios de aceptación:
-- Referencia única, nombre, categoría y total de unidades obligatorios.
+- Referencia única, nombre, categoría y total de unidades obligatorios. Descripción opcional.
 - El total de unidades debe ser mayor que cero.
 - Al crear, available_units igual a total_units.
 - Referencia duplicada responde 409 Conflict.
@@ -283,6 +283,32 @@ de artículos y los filtros del catálogo.
 
 Justificación: HU01 y HU02 dependen de conocer las categorías disponibles.
 Las categorías son datos de estructura, no gestionables por el usuario.
+
+---
+
+### SOP03 — Búsqueda de organizador por documento
+El asesor busca un organizador por su documento de identidad antes de crear un
+alquiler, para no registrarlo dos veces.
+
+- Endpoint: GET /api/v1/organizers?document_number=...
+- Requiere token válido.
+- Respuesta 200 OK con el organizador o lista vacía si no existe.
+- No crea, edita ni borra.
+
+Justificación: HU06 requiere un organizer_id; sin búsqueda, el asesor tendría
+que conocer el id interno.
+
+### SOP04 — Obtener artículo por id
+El asesor obtiene el detalle completo de un artículo por su id para poblar el
+formulario de edición o confirmar el stock antes de alquilar.
+
+- Endpoint: GET /api/v1/articles/{id}
+- Requiere token válido.
+- Respuesta 200 OK con el artículo completo, incluido available_units.
+- Respuesta 404 si no existe o tiene baja lógica.
+
+Justificación: HU03 requiere el artículo completo para editar; HU06 requiere
+confirmar stock antes de alquilar.
 
 ---
 
