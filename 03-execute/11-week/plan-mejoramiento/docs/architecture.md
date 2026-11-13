@@ -467,14 +467,14 @@ php artisan key:generate --show y se pega en infra/.env.
 | Servicio | Verificación | Propósito |
 |:---|:---|:---|
 | db | pg_isready | que PostgreSQL acepte conexiones, no solo que el contenedor arranque |
-| api | nc -z 127.0.0.1 80 | que Nginx esté escuchando |
+| api | curl -f http://127.0.0.1/up | que Laravel responda en /up |
 
 api espera a db con condition: service_healthy. app espera a api con la misma
 condición. page no depende de nadie.
 
 El healthcheck de api verifica disponibilidad del puerto, no un endpoint de
-salud. No se crea un endpoint /health porque no está en la especificación y
-añadiría alcance no declarado.
+salud. Se usa el endpoint /up que Laravel 12 incluye de forma nativa; no se
+crea uno propio.
 
 ### Puerto de la base de datos
 
