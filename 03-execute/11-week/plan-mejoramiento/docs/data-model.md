@@ -270,7 +270,7 @@ Tabla estándar de Laravel Sanctum. Implementa SOP01.
 | created_at | timestamptz | obligatorio |
 | updated_at | timestamptz | obligatorio |
 
-La genera la migración publicada por Sanctum. No se modifica su estructura.
+Se publica la migración de Sanctum y se adaptan sus columnas de fecha a timestamptz para conservar RNF02.
 
 ---
 
