@@ -11,10 +11,12 @@ return new class extends Migration
     {
         Schema::create('rental_return_lines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rental_return_id')->constrained('rental_returns')->restrictOnDelete()->index();
-            $table->foreignId('rental_line_id')->constrained('rental_lines')->restrictOnDelete()->index();
+            $table->foreignId('rental_return_id')->constrained('rental_returns')->restrictOnDelete();
+            $table->foreignId('rental_line_id')->constrained('rental_lines')->restrictOnDelete();
             $table->integer('quantity');
             $table->timestampsTz();
+            $table->index('rental_return_id');
+            $table->index('rental_line_id');
         });
 
         DB::statement('ALTER TABLE rental_return_lines ADD CONSTRAINT rental_return_lines_quantity_positive CHECK (quantity > 0)');

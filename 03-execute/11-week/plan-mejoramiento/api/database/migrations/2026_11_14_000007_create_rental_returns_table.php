@@ -10,10 +10,11 @@ return new class extends Migration
     {
         Schema::create('rental_returns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rental_id')->constrained('rentals')->restrictOnDelete()->index();
+            $table->foreignId('rental_id')->constrained('rentals')->restrictOnDelete();
             $table->foreignId('advisor_id')->constrained('advisors')->restrictOnDelete();
             $table->timestampTz('returned_at');
             $table->timestampsTz();
+            $table->index('rental_id');
         });
     }
 

@@ -11,13 +11,14 @@ return new class extends Migration
     {
         Schema::create('rentals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organizer_id')->constrained('organizers')->restrictOnDelete()->index();
+            $table->foreignId('organizer_id')->constrained('organizers')->restrictOnDelete();
             $table->foreignId('advisor_id')->constrained('advisors')->restrictOnDelete();
             $table->timestampTz('rented_at');
             $table->timestampTz('due_at');
             $table->timestampTz('returned_at')->nullable();
             $table->string('status', 20);
             $table->timestampsTz();
+            $table->index('organizer_id');
             $table->index(['status', 'due_at']);
         });
 

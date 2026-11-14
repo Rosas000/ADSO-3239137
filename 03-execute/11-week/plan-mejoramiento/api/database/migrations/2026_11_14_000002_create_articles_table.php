@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories')->restrictOnDelete()->index();
+            $table->foreignId('category_id')->constrained('categories')->restrictOnDelete();
             $table->string('reference', 50)->unique();
             $table->string('name', 150);
             $table->text('description')->nullable();
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('available_units');
             $table->timestampsTz();
             $table->softDeletesTz();
+            $table->index('category_id');
             $table->index('deleted_at');
         });
 
