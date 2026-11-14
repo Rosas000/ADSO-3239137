@@ -24,7 +24,7 @@ Códigos de estado usados:
 | 201 | creación exitosa |
 | 401 | sin token o token inválido |
 | 404 | recurso inexistente |
-| 409 | conflicto de estado (duplicado, inventario insuficiente, deadlock evitado) |
+| 409 | conflicto de estado (duplicado, inventario insuficiente) |
 | 422 | datos mal formados o regla de negocio violada |
 
 No se usa 403: existe un único rol operativo.

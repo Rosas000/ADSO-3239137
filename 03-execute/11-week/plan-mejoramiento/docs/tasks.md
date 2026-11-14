@@ -248,7 +248,7 @@ Estado: pendiente
 Descontar unidades de forma atómica y congelar los datos del catálogo.
 Respaldo: HU06, RN04, RN05, RNF01, ADR-002.
 Subcarpeta: api
-Verificación: la creación ocurre en una transacción con bloqueo de fila
+Verificación: la creación ocurre en una transacción que bloquea primero la fila del organizador y luego las de los artículos
 (lockForUpdate). Las líneas se bloquean en orden ascendente por article_id
 para evitar deadlocks (ADR-002). Cantidad mayor que available_units responde
 409. Cada línea guarda article_reference y article_name copiados del artículo.
@@ -389,7 +389,7 @@ en el mismo commit.
 | RentalDueDateTest | RN02, plazo de tres días | T18 |
 | InventoryBoundsTest | RN04, inventario acotado | T19, T21 |
 | FrozenSnapshotTest | RN05, datos congelados | T19, T20 |
-| ConcurrentRentalTest | RNF01, última unidad y deadlock evitado | T19 |
+| ConcurrentRentalTest | RNF01, última unidad y serialización por organizador | T19 |
 | RentalListTest | HU07, filtros por estado | T20 |
 | ReturnCreateTest | HU09, devolución parcial, total y casos de error | T21 |
 | MostRequestedReportTest | HU10, orden por unidades y rango de fechas | T22 |
