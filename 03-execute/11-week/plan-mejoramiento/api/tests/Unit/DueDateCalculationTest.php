@@ -15,6 +15,6 @@ class DueDateCalculationTest extends TestCase
         $due = app(RentalService::class)->calculateDueAt($rented);
 
         $this->assertSame('2026-11-17T10:00:00', $due->format('Y-m-d\TH:i:s'));
-        $this->assertSame('UTC', $due->timezoneName);
+        $this->assertSame(0, $due->getOffset());
     }
 }
