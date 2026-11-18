@@ -1,0 +1,14 @@
+Autenticado.
+Categorias disponibles:
+carpas
+decoracion
+mesas
+sillas
+tarimas
+Creando articulos...
+Creando organizadores...
+Creando alquiler...
+Devolucion parcial...
+Reporte de mas solicitados:
+{"data":[]}
+Siembra completa por HTTP.
