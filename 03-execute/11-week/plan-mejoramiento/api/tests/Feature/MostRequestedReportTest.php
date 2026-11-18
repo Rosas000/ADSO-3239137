@@ -19,12 +19,13 @@ class MostRequestedReportTest extends TestCase
         $category = Category::create(['name' => 'Sillas', 'slug' => 'sillas']);
         $art1 = Article::create(['category_id' => $category->id, 'reference' => 'SIL-001', 'name' => 'Silla', 'total_units' => 20, 'available_units' => 20]);
         $art2 = Article::create(['category_id' => $category->id, 'reference' => 'SIL-002', 'name' => 'Otra', 'total_units' => 20, 'available_units' => 20]);
-        $organizer = Organizer::create(['document_number' => '1', 'full_name' => 'Ana', 'phone' => '300']);
+        $org1 = Organizer::create(['document_number' => '1', 'full_name' => 'Ana', 'phone' => '300']);
+        $org2 = Organizer::create(['document_number' => '2', 'full_name' => 'Luis', 'phone' => '300']);
         $advisor = Advisor::create(['name' => 'A', 'email' => 'a@b.co', 'password' => 'x']);
         $service = app(RentalService::class);
 
-        $service->create([['article_id' => $art1->id, 'quantity' => 5]], $organizer->id, $advisor->id);
-        $service->create([['article_id' => $art1->id, 'quantity' => 3], ['article_id' => $art2->id, 'quantity' => 2]], $organizer->id, $advisor->id);
+        $service->create([['article_id' => $art1->id, 'quantity' => 5]], $org1->id, $advisor->id);
+        $service->create([['article_id' => $art1->id, 'quantity' => 3], ['article_id' => $art2->id, 'quantity' => 2]], $org2->id, $advisor->id);
 
         $response = $this->withToken($advisor->createToken('t')->plainTextToken)
             ->getJson('/api/v1/reports/most-requested');
