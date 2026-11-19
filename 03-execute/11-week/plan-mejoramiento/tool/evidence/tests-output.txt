@@ -1,0 +1,66 @@
+
+   PASS  Tests\Unit\DueDateCalculationTest
+  ✓ due at es rented at mas tres dias en utc                             0.52s  
+
+   PASS  Tests\Feature\ArticleCatalogTest
+  ✓ el catalogo excluye articulos dados de baja                          1.43s  
+
+   PASS  Tests\Feature\ArticleCreateTest
+  ✓ crea articulo con inventario inicial igual al total                  0.32s  
+  ✓ referencia duplicada responde 409                                    0.30s  
+
+   PASS  Tests\Feature\ArticleUpdateTest
+  ✓ total por debajo de lo alquilado responde 422                        0.25s  
+
+   PASS  Tests\Feature\AuthenticationTest
+  ✓ login devuelve token con credenciales validas                        0.37s  
+  ✓ login responde 401 con credenciales invalidas                        0.26s  
+
+   PASS  Tests\Feature\CategoryListTest
+  ✓ devuelve las cinco categorias fijas                                  0.42s  
+
+   PASS  Tests\Feature\ConcurrentRentalTest
+  ✓ dos alquileres simultaneos sobre una unidad solo uno pasa            1.79s  
+
+   PASS  Tests\Feature\FrozenSnapshotTest
+  ✓ la linea conserva datos aunque el catalogo cambie                    0.70s  
+
+   PASS  Tests\Feature\InventoryBoundsTest
+  ✓ cantidad mayor al inventario lanza 409 y no descuenta                0.30s  
+
+   PASS  Tests\Feature\MostRequestedReportTest
+  ✓ el reporte ordena por cantidad descendente                           0.39s  
+
+   PASS  Tests\Feature\OrganizerBlockTest
+  ✓ organizador con alquiler vencido queda bloqueado                     0.29s  
+  ✓ organizador con alquiler vigente no queda bloqueado                  0.33s  
+
+   PASS  Tests\Feature\OrganizerCreateTest
+  ✓ crea organizador                                                     0.32s  
+  ✓ documento duplicado responde 409                                     0.34s  
+
+   PASS  Tests\Feature\OrganizerSearchTest
+  ✓ busqueda filtra por nombre                                           0.28s  
+
+   PASS  Tests\Feature\OrganizerStatusTest
+  ✓ show reporta vencido y unidades pendientes                           0.30s  
+
+   PASS  Tests\Feature\RentalDueDateTest
+  ✓ el plazo es de tres dias calendario                                  0.20s  
+
+   PASS  Tests\Feature\RentalLimitTest
+  ✓ superar el limite de cinco lanza excepcion                           0.25s  
+  ✓ dentro del limite no lanza excepcion                                 0.25s  
+
+   PASS  Tests\Feature\ReturnCreateTest
+  ✓ devolucion parcial incrementa inventario y mantiene activo           0.38s  
+  ✓ devolucion total cambia estado a returned                            0.31s  
+  ✓ devolucion que excede pendiente responde 422                         0.31s  
+
+   PASS  Tests\Feature\SoftDeleteTest
+  ✓ baja con unidades pendientes responde 422                            0.26s  
+  ✓ baja sin pendientes es logica y no borra la fila                     0.29s  
+
+  Tests:    26 passed (49 assertions)
+  Duration: 11.60s
+

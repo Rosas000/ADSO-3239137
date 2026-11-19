@@ -1,0 +1,5 @@
+NAME                     IMAGE                  COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+event-furniture-api-1    event-furniture-api    "/entrypoint.sh"         api       13 minutes ago   Up 12 minutes (healthy)   0.0.0.0:8000->80/tcp, [::]:8000->80/tcp
+event-furniture-app-1    event-furniture-app    "/docker-entrypoint.…"   app       13 minutes ago   Up 16 seconds             0.0.0.0:8081->80/tcp, [::]:8081->80/tcp
+event-furniture-db-1     postgres:16-alpine     "docker-entrypoint.s…"   db        4 days ago       Up 18 minutes (healthy)   5432/tcp
+event-furniture-page-1   event-furniture-page   "/docker-entrypoint.…"   page      26 hours ago     Up 18 minutes             0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
